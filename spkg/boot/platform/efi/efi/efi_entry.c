@@ -5,7 +5,7 @@
  */
 
 #include <sys/comdef.h>
-#include <efi/efi.h>
+#include <efilib.h>
 
 /*
  * EFI platform entry point, firmware passes control to us here...
@@ -23,6 +23,17 @@ efi_main (
     __in EFI_SYSTEM_TABLE *systab
     )
 {
+    status_t status;
+
+    /*
+     * Initialize global firmware state.
+     */
+
+    status = efi_init_firmware(image_handle, systab);
+    if (!OS_SUCCESS(status)) {
+        return EFI_INVALID_PARAMETER;
+    }
+
     /* Abort if we reach this point */
     return EFI_ABORTED;
 }

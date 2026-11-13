@@ -10,6 +10,10 @@
 #include <sys/comdef.h>
 #include <wchar.h>
 
+#define LOADER_NAME     L"YiffSys IPL.0"
+#define LOADER_REVISION L"v0.0.1"
+#define DOTS            L"........ "
+
 /*
  * Write a formatted string to the console.
  *

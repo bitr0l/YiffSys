@@ -34,6 +34,15 @@ efi_main (
         return EFI_INVALID_PARAMETER;
     }
 
+    /*
+     * Reset the console, potential failures are not fatal.
+     */
+
+    g_cons->Reset(
+        g_cons,
+        FALSE
+    );
+
     /* Abort if we reach this point */
     return EFI_ABORTED;
 }

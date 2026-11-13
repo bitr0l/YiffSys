@@ -22,4 +22,20 @@ efi_to_os_status (
     __in EFI_STATUS status
     );
 
+/*
+ * Initialize firmware global state.
+ *
+ * @handle:   Image handle passed by firmware
+ * @systab:   System table interface passed by firmware
+ *
+ * Return value:
+ *      Returns STATUS_SUCCESS if successful.
+ *      Returns error code on failure.
+ */
+status_t
+efi_init_firmware (
+    __in EFI_HANDLE image_handle,
+    __in EFI_SYSTEM_TABLE *systab
+    );
+
 #endif  /* !_EFILIB_H */

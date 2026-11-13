@@ -54,7 +54,7 @@ efi_main (
      * Abort if we reach this point.
      */
 
-    cons_printf(DOTS "BOOT MANAGER ABORTED\r\n");
+    cons_printf(DOTS "IPL ABORTED\r\n");
     g_bs->Stall(2000000);
     return EFI_ABORTED;
 }

@@ -6,6 +6,7 @@
 
 #include <sys/comdef.h>
 #include <efilib.h>
+#include <bootlib.h>
 
 /*
  * EFI platform entry point, firmware passes control to us here...
@@ -43,6 +44,17 @@ efi_main (
         FALSE
     );
 
-    /* Abort if we reach this point */
+    /*
+     * Boot manager handoff.
+     */
+
+    bm_main();
+
+    /*
+     * Abort if we reach this point.
+     */
+
+    cons_printf(DOTS "BOOT MANAGER ABORTED\r\n");
+    g_bs->Stall(2000000);
     return EFI_ABORTED;
 }

@@ -26,4 +26,12 @@ cons_printf (
     ...
     );
 
+/*
+ * Boot manager entry point.
+ */
+void
+bm_main (
+    void
+    );
+
 #endif  /* !_BOOTLIB_H */

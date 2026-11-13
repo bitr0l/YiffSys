@@ -12,6 +12,12 @@
 #include <stdint.h>
 #include <efi/efi.h>
 
+/* Global firmware interface */
+extern EFI_HANDLE g_image;
+extern EFI_SYSTEM_TABLE *g_st;
+extern EFI_BOOT_SERVICES *g_bs;
+extern EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *g_cons;
+
 /*
  * Translate an EFI status code to a YiffSys status code.
  *

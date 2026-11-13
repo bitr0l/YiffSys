@@ -71,4 +71,15 @@ build_make() {
     popd
 }
 
+#
+# Begin the actual build process.
+#
+build() {
+    build_make      \
+        spkg/boot
+
+    make_disk
+}
+
 build_prepare
+build

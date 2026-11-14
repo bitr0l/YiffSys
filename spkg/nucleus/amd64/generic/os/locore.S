@@ -6,7 +6,21 @@
 
     .section .ipl, "ax", @progbits
     .globl _start
+    .extern __bss_start
+    .extern __bss_end
 _start:
+    /* Compute size of .bss */
+    lea __bss_start(%rip), %rdi
+    lea __bss_end(%rip), %rsi
+    sub %rdi, %rsi
+
+    /* Zero .bss */
+    mov %rsi, %rcx
+    xor %al, %al
+    lea __bss_start(%rip), %rdi
+    cld
+    rep stosb
+
     /* Set our stack */
     xor %rbp, %rbp
     lea stack_top(%rip), %rsp

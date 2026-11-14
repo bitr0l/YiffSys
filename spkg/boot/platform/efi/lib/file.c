@@ -40,7 +40,7 @@ get_boot_volume (
      */
 
     efi_status = g_bs->HandleProtocol(
-        &lip->DeviceHandle,
+        lip->DeviceHandle,
         &fs_guid,
         (void *)&io_volume
     );

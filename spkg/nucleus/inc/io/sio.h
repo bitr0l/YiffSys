@@ -26,6 +26,7 @@ struct sio_xaccum_list;
  *
  * @list:   Accumulator list being drained
  * @accum:  Current accumulator being drained
+ * @data:   Data to drain
  * @offset: Offset being drained
  * @length: Length of data being drained
  * @flags:  Backend specific flags
@@ -33,6 +34,7 @@ struct sio_xaccum_list;
 typedef size_t(*xaccum_drain_t) (
     __in struct sio_xaccum_list *list,
     __in struct sio_xaccum *accum,
+    __in void *data,
     __in size_t offset,
     __in size_t length,
     __in uint16_t flags

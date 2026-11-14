@@ -12,6 +12,9 @@
 #include <io/sio.h>
 #include <ctrace/object.h>
 
+/* Maximum entries per fixed domain */
+#define CTRACE_XDOMAIN_ENTRIES 32
+
 /*
  * CTrace drain callback
  *
@@ -26,5 +29,16 @@ ctrace_drain_object (
     __in size_t length,
     __in uint16_t flags
     );
+
+/*
+ * Represents a fixed CTrace domain
+ *
+ * @storage:        Object storage
+ * @nr_entries:     Number of objects
+ */
+struct ctrace_xdomain {
+    struct ctrace_object storage[CTRACE_XDOMAIN_ENTRIES];
+    size_t nr_entries;
+};
 
 #endif  /* !_CTRACE_CTRACEVAR_H */

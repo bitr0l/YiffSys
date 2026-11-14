@@ -111,7 +111,7 @@ g_gdt:
 
     .globl g_gdtr
 g_gdtr:
-    .word g_gdtr - g_gdt
+    .word g_gdtr - g_gdt - 1
     .quad g_gdt
 
     .section .bss

@@ -17,8 +17,8 @@ px_serial_init:
 px_serial_write:
     pushfq
     cld
-    mov $0x3F8, %dx
     mov %rdx, %rcx
+    mov $0x3F8, %dx
     rep outsb
     popfq
     retq

@@ -17,6 +17,36 @@
 #define DOTS            L"........ "
 
 /*
+ * Valid memory descriptor kinds.
+ */
+#define BOOT_MEMORY_RESERVED 0x00000000UL   /* Reserved by firmware */
+#define BOOT_MEMORY_USABLE   0x00000001UL   /* Usable memory */
+#define BOOT_MEMORY_BAD      0x00000002UL   /* Unusable memory */
+
+typedef uint32_t memkind_t;
+
+/*
+ * Represents an entry within the platform memory map.
+ *
+ * @kind:       Memory region kind
+ * @pbase:      Physical base address of region
+ * @length:     Length of region in bytes
+ */
+struct memory_descriptor {
+    memkind_t kind;
+    uint64_t pbase;
+    uint64_t length;
+};
+
+/*
+ * YiffSys internal representation of platform memory map.
+ */
+struct memory_map {
+    struct memory_descriptor *entries;
+    uint64_t key;
+};
+
+/*
  * Configure the platform watchdog timer.
  *
  * @timeout:    Timeout in seconds

@@ -7,6 +7,7 @@
 #ifndef _IO_SIO_H
 #define _IO_SIO_H 1
 
+#include <sys/queue.h>
 #include <sys/status.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -42,27 +43,25 @@ typedef size_t(*xaccum_drain_t) (
  * @enq:   Chunk enqueue pointer
  * @deq:   Chunk dequeue pointer
  * @data:  Backend specific data
- * @next:  Next accumulator
+ * @link:  Link chain
  */
 struct sio_xaccum {
     uint8_t chunk[SIO_X_ACCUM_WIDTH];
     size_t enq;
     size_t deq;
     void *data;
-    struct sio_xaccum *next;
+    TAILQ_ENTRY(sio_xaccum) link;
 };
 
 /*
  * List of fixed width accumulators.
  *
  * @head:           Head of the accumulator list
- * @tail:           Tail of the accumulator list
  * @nr_entries:     Number of accumulators
  * @drain:          Drain callback
  */
 struct sio_xaccum_list {
-    struct sio_xaccum *head;
-    struct sio_xaccum *tail;
+    TAILQ_HEAD(, sio_xaccum) head;
     size_t nr_entries;
     xaccum_drain_t drain;
 };

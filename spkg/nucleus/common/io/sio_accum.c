@@ -16,8 +16,7 @@ sio_xaccum_linit (
         return STATUS_INVALID_PARAM;
     }
 
-    list->head = NULL;
-    list->tail = NULL;
+    TAILQ_INIT(&list->head);
     list->nr_entries = 0;
     list->drain = drain_cb;
     return STATUS_SUCCESS;
@@ -32,24 +31,11 @@ sio_xaccum_insert (
     __in struct sio_xaccum *accum
     )
 {
-    struct sio_xaccum *head;
-
     if (list == NULL || accum == NULL) {
         return STATUS_INVALID_PARAM;
     }
 
-    /* Is this the first element? */
-    if (list->head == NULL || list->tail == NULL) {
-        list->head = accum;
-        list->tail = accum;
-        list->nr_entries = 1;
-        return STATUS_SUCCESS;
-    }
-
-    /* Insert to back of list */
-    head = list->head;
-    head->next = accum;
-    list->head = accum;
+    TAILQ_INSERT_TAIL(&list->head, accum, link);
     ++list->nr_entries;
     return STATUS_SUCCESS;
 }

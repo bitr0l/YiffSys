@@ -128,6 +128,7 @@ sio_xaccum_insert (
  *
  * Return value:
  *      Returns the number of bytes written on success.
+ *      Returns zero if the accumulator is full.
  *      Returns a less than zero value on failure.
  */
 ssize_t

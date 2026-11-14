@@ -9,6 +9,7 @@
 
 #include <sys/status.h>
 #include <sys/comdef.h>
+#include <efilib.h>
 #include <wchar.h>
 #include <stdint.h>
 
@@ -61,6 +62,20 @@ struct file_descriptor {
     EFI_FILE_HANDLE handle;
     uint64_t size_bytes;
 };
+
+/*
+ * Obtain the volume in which we are booting from.
+ *
+ * @volume: Result is written here
+ *
+ * Return value:
+ *     Returns STATUS_SUCCESS if successful.
+ *     Returns error code on failure.
+ */
+status_t
+get_boot_volume (
+    __out EFI_FILE_HANDLE *volume
+    );
 
 /*
  * Obtain the platform memory map.

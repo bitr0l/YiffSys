@@ -52,6 +52,17 @@ struct memory_map {
 };
 
 /*
+ * Represents an opened file.
+ *
+ * @handle:         EFI file handle interface
+ * @size_bytes:     Size of file in bytes
+ */
+struct file_descriptor {
+    EFI_FILE_HANDLE handle;
+    uint64_t size_bytes;
+};
+
+/*
  * Obtain the platform memory map.
  *
  * @map: Result is written here

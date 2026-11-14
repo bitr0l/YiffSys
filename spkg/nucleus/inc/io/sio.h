@@ -83,6 +83,22 @@ sio_xaccum_linit (
     );
 
 /*
+ * Initialize an accumulator
+ *
+ * @accum:  Accumulator to initialize
+ * @data:   Backend specific data
+ *
+ * Return value:
+ *      Returns STATUS_SUCCESS if successful.
+ *      Returns error code on failure.
+ */
+status_t
+sio_xaccum_init (
+    __in struct sio_xaccum *accum,
+    __in void *data __optional
+    );
+
+/*
  * Insert a fixed width accumulator into an accumulator
  * list.
  *

@@ -22,6 +22,22 @@ sio_xaccum_linit (
     return STATUS_SUCCESS;
 }
 
+status_t
+sio_xaccum_init (
+    __in struct sio_xaccum *accum,
+    __in void *data __optional
+    )
+{
+    if (accum == NULL) {
+        return STATUS_INVALID_PARAM;
+    }
+
+    accum->enq = 0;
+    accum->deq = 0;
+    accum->data = data;
+    return STATUS_SUCCESS;
+}
+
 /*
  * TODO: This probably needs some kind of locking.
  */

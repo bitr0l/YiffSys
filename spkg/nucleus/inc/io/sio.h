@@ -115,4 +115,22 @@ sio_xaccum_insert (
     __in struct sio_xaccum *accum
     );
 
+/*
+ * Write to an accumulator buffer.
+ *
+ * @accum:  Accumulator to write to
+ * @data:   Data to write
+ * @length: Length of data to write
+ *
+ * Return value:
+ *      Returns the number of bytes written on success.
+ *      Returns a less than zero value on failure.
+ */
+ssize_t
+sio_xaccum_write (
+    __in struct sio_xaccum *accum,
+    __in const char *data,
+    __in size_t length
+    );
+
 #endif  /* !_IO_SIO_H */

@@ -5,6 +5,7 @@
  */
 
 #include <io/sio.h>
+#include <string.h>
 
 status_t
 sio_xaccum_linit (
@@ -54,4 +55,26 @@ sio_xaccum_insert (
     TAILQ_INSERT_TAIL(&list->head, accum, link);
     ++list->nr_entries;
     return STATUS_SUCCESS;
+}
+
+ssize_t
+sio_xaccum_write (
+    __in struct sio_xaccum *accum,
+    __in const char *data,
+    __in size_t length
+    )
+{
+    size_t trunc_length = length;
+
+    if (accum == NULL || data == NULL) {
+        return -1;
+    }
+
+    if ((length + accum->enq) > SIO_X_ACCUM_WIDTH) {
+        trunc_length = (length + accum->enq) - SIO_X_ACCUM_WIDTH;
+    }
+
+    memcpy(&accum->chunk[accum->enq], data, trunc_length);
+    accum->enq += trunc_length;
+    return trunc_length;
 }

@@ -16,6 +16,7 @@
 #define LOADER_NAME     L"YiffSys IPL.0"
 #define LOADER_REVISION L"v0.0.1"
 #define DOTS            L"........ "
+#define KERNEL_PATH     L"yiff.sys"
 
 /*
  * Valid memory descriptor kinds.

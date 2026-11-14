@@ -15,6 +15,9 @@
 /* Maximum name length of a CTrace object */
 #define CTRACE_OBJECT_NAMELEN 256
 
+/* Maximum debug buffer size in bytes */
+#define CTRACE_DBG_BUF_LEN 512
+
 /* Object cookie for verification */
 #define CTRACE_OBJECT_COOKIE 0xCA7F00D
 
@@ -72,6 +75,24 @@ ctrace_write (
     __in struct ctrace_object *object,
     __in const char *data,
     __in size_t length
+    );
+
+/*
+ * Write to a CTrace object using formatters
+ *
+ * @object:  Object to write to
+ * @fmt:     Format specifier
+ * @<...>:   Variadic arguments
+ *
+ * Return value:
+ *      Returns STATUS_SUCCESS if successful.
+ *      Returns error code on failure.
+ */
+ssize_t
+ctrace_dbg_write (
+    __in struct ctrace_object *object,
+    __in const char *fmt,
+    ...
     );
 
 #endif  /* !_CTRACE_OBJECT_H */

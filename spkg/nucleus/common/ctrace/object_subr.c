@@ -6,7 +6,9 @@
 
 #include <ctrace/object.h>
 #include <ctrace/ctracevar.h>
+#include <aux/printf.h>
 #include <string.h>
+#include <stdarg.h>
 
 status_t
 ctrace_init_object (
@@ -93,5 +95,33 @@ ctrace_write (
         }
     }
 
+    return length;
+}
+
+ssize_t
+ctrace_dbg_write (
+    __in struct ctrace_object *object,
+    __in const char *fmt,
+    ...
+    )
+{
+    va_list ap;
+    char buf[CTRACE_DBG_BUF_LEN];
+    size_t length;
+
+    if (object == NULL) {
+        return -1;
+    }
+
+    if (fmt == NULL) {
+        fmt = "(null)";
+    }
+
+    va_start(ap, fmt);
+    vsnprintf(buf, sizeof(buf), fmt, ap);
+
+    length = strlen(buf);
+    ctrace_write(object, buf, length);
+    va_end(ap);
     return length;
 }

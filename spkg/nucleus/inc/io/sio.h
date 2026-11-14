@@ -18,6 +18,23 @@ struct sio_xaccum;
 struct sio_xaccum_list;
 
 /*
+ * Fixed width accumulator drain callback
+ *
+ * @list:   Accumulator list being drained
+ * @accum:  Current accumulator being drained
+ * @offset: Offset being drained
+ * @length: Length of data being drained
+ * @flags:  Backend specific flags
+ */
+typedef size_t(*xaccum_drain_t) (
+    __in struct sio_xaccum_list *list,
+    __in struct sio_xaccum *accum,
+    __in size_t offset,
+    __in size_t length,
+    __in uint16_t flags
+);
+
+/*
  * Fixed width SIO accumulator.
  *
  * @chunk: Fixed width accumulator chunk
@@ -36,11 +53,17 @@ struct sio_xaccum {
 
 /*
  * List of fixed width accumulators.
+ *
+ * @head:           Head of the accumulator list
+ * @tail:           Tail of the accumulator list
+ * @nr_entries:     Number of accumulators
+ * @drain:          Drain callback
  */
 struct sio_xaccum_list {
     struct sio_xaccum *head;
     struct sio_xaccum *tail;
     size_t nr_entries;
+    xaccum_drain_t drain;
 };
 
 #endif  /* !_IO_SIO_H */

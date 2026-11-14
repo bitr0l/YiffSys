@@ -10,6 +10,7 @@ include ../../../mk/sys.mk
 CFILES = $(shell find . -name "*.c")
 CFILES += $(shell find ../xt -name "*.c")
 CFILES += $(shell find ../aux -name "*.c")
+CFILES += $(shell find ../io -name "*.c")
 CFILES += $(shell find $(GLOBAL_ROOT)/sdk/crt -name "*.c")
 OFILES = $(CFILES:.c=.o)
 DFILES = $(CFILES:.c=.d)

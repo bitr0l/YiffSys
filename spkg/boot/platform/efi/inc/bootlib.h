@@ -40,11 +40,30 @@ struct memory_descriptor {
 
 /*
  * YiffSys internal representation of platform memory map.
+ *
+ * @entries:        Platform memory map entries
+ * @entry_count:    Number of entries in map
+ * @key:            Platform memory map key
  */
 struct memory_map {
     struct memory_descriptor *entries;
+    uint64_t entry_count;
     uint64_t key;
 };
+
+/*
+ * Obtain the platform memory map.
+ *
+ * @map: Result is written here
+ *
+ * Return value:
+ *     Returns STATUS_SUCCESS if successful.
+ *     Returns error code on failure.
+ */
+status_t
+get_memory_map (
+    __out struct memory_map *map
+    );
 
 /*
  * Configure the platform watchdog timer.

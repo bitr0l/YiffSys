@@ -15,6 +15,7 @@
 #define STATUS_NOT_SUPPORTED    0x00000003UL   /* Operation not supported */
 #define STATUS_NOT_EXEC         0x00000004UL   /* Not executable */
 #define STATUS_FAILURE          0x00000005UL   /* Operation failed */
+#define STATUS_NAME_TOO_LONG    0x00000006UL   /* Name is too long */
 
 /*
  * All routines returning status codes must be of the

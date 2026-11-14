@@ -16,6 +16,7 @@
 #define STATUS_NOT_EXEC         0x00000004UL   /* Not executable */
 #define STATUS_FAILURE          0x00000005UL   /* Operation failed */
 #define STATUS_NAME_TOO_LONG    0x00000006UL   /* Name is too long */
+#define STATUS_NOT_FOUND        0x00000007UL   /* Resource not found */
 
 /*
  * All routines returning status codes must be of the

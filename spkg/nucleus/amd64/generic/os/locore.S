@@ -8,6 +8,7 @@
     .globl _start
     .extern __bss_start
     .extern __bss_end
+    .extern kmain
 _start:
     /* Compute size of .bss */
     lea __bss_start(%rip), %rdi
@@ -25,9 +26,10 @@ _start:
     xor %rbp, %rbp
     lea stack_top(%rip), %rsp
 
-    /* Load our own GDT */
+    /* Load our own GDT and enter kernel main */
     lea g_gdtr(%rip), %rdi
     call gdt_load
+    call kmain
 
     mfence
 1:  cli

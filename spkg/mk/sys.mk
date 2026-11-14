@@ -12,7 +12,7 @@ COMMON_CFLAGS =							\
 	-MMD								\
 	-I$(GLOBAL_ROOT)/sdk/inc/crt		\
 	-I$(GLOBAL_ROOT)/sdk/inc/			\
-	-I$(GLOBAL_ROOT)/sys/head/
+	-I$(GLOBAL_ROOT)/nucleus/inc/
 
 ifeq ($(CONFIG_ARCH),amd64)
 	COMMON_CFLAGS +=					\

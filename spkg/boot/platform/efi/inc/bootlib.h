@@ -64,6 +64,24 @@ struct file_descriptor {
 };
 
 /*
+ * Open a file by path.
+ *
+ * @volume:     Volume file resides on.
+ * @file_path:  Path of file to open.
+ * @descriptor: Resulting descriptor is written here.
+ *
+ * Return value:
+ *     Returns STATUS_SUCCESS if successful.
+ *     Returns error code on failure.
+ */
+status_t
+open_file_path (
+    __in EFI_FILE_HANDLE volume,
+    __in wchar_t *file_path,
+    __out struct file_descriptor *descriptor
+    );
+
+/*
  * Obtain the volume in which we are booting from.
  *
  * @volume: Result is written here

@@ -56,3 +56,67 @@ get_boot_volume (
 
     return efi_to_os_status(efi_status);
 }
+
+status_t
+open_file_path (
+    __in EFI_FILE_HANDLE volume,
+    __in wchar_t *file_path,
+    __out struct file_descriptor *descriptor
+    )
+{
+    EFI_STATUS efi_status;
+
+    if (volume == NULL || file_path == NULL) {
+        return STATUS_INVALID_PARAM;
+    }
+
+    if (descriptor == NULL) {
+        return STATUS_INVALID_PARAM;
+    }
+
+    /*
+     * Open the file by path.
+     */
+
+    efi_status = volume->Open(
+        volume,
+        &descriptor->handle,
+        file_path,
+        EFI_FILE_MODE_READ,
+        EFI_FILE_READ_ONLY | EFI_FILE_HIDDEN | EFI_FILE_SYSTEM
+    );
+
+    if (efi_status != EFI_SUCCESS) {
+        return efi_to_os_status(efi_status);
+    }
+
+    /*
+     * Obtain the file size.
+     */
+
+    efi_status = descriptor->handle->SetPosition(
+        descriptor->handle,
+        0xFFFFFFFFFFFFFFFF
+    );
+
+    if (efi_status != EFI_SUCCESS) {
+        return efi_to_os_status(efi_status);
+    }
+
+    efi_status = descriptor->handle->GetPosition(
+        descriptor->handle,
+        &descriptor->size_bytes
+    );
+
+    if (efi_status != EFI_SUCCESS) {
+        descriptor->handle->SetPosition(descriptor->handle, 0);
+        return efi_to_os_status(efi_status);
+    }
+
+    efi_status = descriptor->handle->SetPosition(
+        descriptor->handle,
+        0
+    );
+
+    return efi_to_os_status(efi_status);
+}

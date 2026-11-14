@@ -7,7 +7,17 @@
     .section .ipl, "ax", @progbits
     .globl _start
 _start:
+    /* Set our stack */
+    xor %rbp, %rbp
+    lea stack_top(%rip), %rsp
+
     mfence
 1:  cli
     hlt
     jmp 1b
+
+    .section .bss
+    .align 16
+stack_base:
+    .skip 8192
+stack_top:

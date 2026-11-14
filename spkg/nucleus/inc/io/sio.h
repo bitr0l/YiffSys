@@ -7,6 +7,7 @@
 #ifndef _IO_SIO_H
 #define _IO_SIO_H 1
 
+#include <sys/status.h>
 #include <stdint.h>
 #include <stddef.h>
 
@@ -65,5 +66,38 @@ struct sio_xaccum_list {
     size_t nr_entries;
     xaccum_drain_t drain;
 };
+
+/*
+ * Initialize a fixed width accumulator list.
+ *
+ * @list:       List to initialize
+ * @drain_cb:   Drain callback to initialize
+ *
+ * Return value:
+ *      Returns STATUS_SUCCESS if successful.
+ *      Returns error code on failure.
+ */
+status_t
+sio_xaccum_linit (
+    __in struct sio_xaccum_list *list,
+    __in xaccum_drain_t drain_cb
+    );
+
+/*
+ * Insert a fixed width accumulator into an accumulator
+ * list.
+ *
+ * @list:   List to append to
+ * @accum:  Accumulator to append
+ *
+ * Return value:
+ *      Returns STATUS_SUCCESS if successful.
+ *      Returns error code on failure.
+ */
+status_t
+sio_xaccum_insert (
+    __in struct sio_xaccum_list *list,
+    __in struct sio_xaccum *accum
+    );
 
 #endif  /* !_IO_SIO_H */

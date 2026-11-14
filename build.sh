@@ -34,6 +34,7 @@ make_disk() {
     mkdir -p disk/EFI/BOOT/
 
     mv out/BOOTX64.EFI disk/EFI/BOOT
+    cp out/yiff.sys disk
 
     rm -f out/yiff.img
     truncate -s 4M out/yiff.img
@@ -77,6 +78,9 @@ build_make() {
 build() {
     build_make      \
         spkg/boot
+
+    build_make      \
+        spkg/nucleus
 
     make_disk
 }

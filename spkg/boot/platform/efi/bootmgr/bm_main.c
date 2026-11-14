@@ -12,6 +12,7 @@ bm_main (
     )
 {
     status_t status;
+    struct memory_map mem_map;
 
     cons_printf(DOTS L"loader revision: %s\r\n", LOADER_REVISION);
     cons_printf(DOTS L"begin %s\r\n", LOADER_NAME);
@@ -33,4 +34,21 @@ bm_main (
     if (!OS_SUCCESS(status)) {
         cons_printf(DOTS L"error: failed to disable watchdog, continuing...\r\n");
     }
+
+    /*
+     * Obtain the platform memory map.
+     *
+     * XXX: This must remain the last thing done
+     */
+
+    status = get_memory_map(&mem_map);
+    if (!OS_SUCCESS(status)) {
+        cons_printf(DOTS L"fatal: failed to obtain memory map\r\n");
+        return;
+    }
+
+    cons_printf(
+        DOTS L"firmware provided %d memory entries\r\n",
+        mem_map.entry_count
+    );
 }

@@ -120,3 +120,29 @@ open_file_path (
 
     return efi_to_os_status(efi_status);
 }
+
+status_t
+read_file (
+    __in struct file_descriptor *descriptor,
+    __inout uint64_t *buf_size,
+    __out void *buffer
+    )
+{
+    EFI_STATUS efi_status;
+
+    if (descriptor == NULL || buf_size == NULL) {
+        return STATUS_INVALID_PARAM;
+    }
+
+    if (buffer == NULL) {
+        return STATUS_INVALID_PARAM;
+    }
+
+    efi_status = descriptor->handle->Read(
+        descriptor->handle,
+        buf_size,
+        buffer
+    );
+
+    return efi_to_os_status(efi_status);
+}

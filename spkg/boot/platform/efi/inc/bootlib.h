@@ -64,6 +64,24 @@ struct file_descriptor {
 };
 
 /*
+ * Read the contents of a file into the specified buffer.
+ *
+ * @descriptor:  Descriptor of file to read
+ * @buf_size:    Number of bytes to read
+ * @buffer:      Destination buffer.
+ *
+ * Return value:
+ *     Returns STATUS_SUCCESS if successful.
+ *     Returns error code on failure.
+ */
+status_t
+read_file (
+    __in struct file_descriptor *descriptor,
+    __inout uint64_t *buf_size,
+    __out void *buffer
+    );
+
+/*
  * Open a file by path.
  *
  * @volume:     Volume file resides on.

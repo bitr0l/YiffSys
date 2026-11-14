@@ -7,10 +7,12 @@
 #ifndef _IO_SIO_H
 #define _IO_SIO_H 1
 
+#include <sys/types.h>
+#include <sys/comdef.h>
 #include <sys/queue.h>
 #include <sys/status.h>
 #include <stdint.h>
-#include <stddef.h>
+#include <stdbool.h>
 
 /* Max width of sio_xaccum */
 #define SIO_X_ACCUM_WIDTH 0x2000

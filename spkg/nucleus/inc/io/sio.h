@@ -137,4 +137,22 @@ sio_xaccum_write (
     __in size_t length
     );
 
+/*
+ * Drain an accumulator list.
+ *
+ * @list:  Accumulator list to drain
+ * @flags: Backend specific flags
+ * @reset: If true, reset the buffer
+ *
+ * Return value:
+ *      Returns the number of bytes drained on success.
+ *      Returns a less than zero value on failure.
+ */
+ssize_t
+sio_xaccum_ldrain (
+    __in struct sio_xaccum_list *list,
+    __in uint16_t flags,
+    __in bool reset
+    );
+
 #endif  /* !_IO_SIO_H */

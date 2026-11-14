@@ -7,6 +7,44 @@
 #include <io/sio.h>
 #include <string.h>
 
+/*
+ * Drain a single accumulator
+ *
+ * @list:   Accumulator list this accumulator is apart of
+ * @offset: Drain offset
+ * @accum:  Accumulator to drain
+ * @flags:  Backend specific flags
+ *
+ * Return value:
+ *      Returns the number of bytes drained.
+ */
+static inline size_t
+xaccum_drain (
+    __in struct sio_xaccum_list *list,
+    __in size_t offset,
+    __in struct sio_xaccum *accum,
+    __in uint16_t flags
+    )
+{
+    size_t nr_drain;
+
+    if (list == NULL || accum == NULL) {
+        return 0;
+    }
+
+    nr_drain = list->drain(
+        list,
+        accum,
+        &accum->chunk[accum->deq],
+        offset,
+        accum->enq - accum->deq,
+        flags
+    );
+
+    accum->deq = (accum->deq + nr_drain) & (SIO_X_ACCUM_WIDTH - 1);
+    return nr_drain;
+}
+
 status_t
 sio_xaccum_linit (
     __in struct sio_xaccum_list *list,
@@ -77,4 +115,36 @@ sio_xaccum_write (
     memcpy(&accum->chunk[accum->enq], data, trunc_length);
     accum->enq += trunc_length;
     return trunc_length;
+}
+
+/*
+ * TODO: Add locking
+ */
+ssize_t
+sio_xaccum_ldrain (
+    __in struct sio_xaccum_list *list,
+    __in uint16_t flags,
+    __in bool reset
+    )
+{
+    size_t offset = 0;
+    size_t nr_bytes = 0;
+
+    struct sio_xaccum *accum;
+
+    if (list == NULL) {
+        return -1;
+    }
+
+    /* Drain each accumulator */
+    TAILQ_FOREACH(accum, &list->head, link) {
+        nr_bytes += xaccum_drain(list, offset, accum, flags);
+        if (reset) {
+            accum->deq = 0;
+            accum->enq = 0;
+        }
+        offset += SIO_X_ACCUM_WIDTH;
+    }
+
+    return nr_bytes;
 }

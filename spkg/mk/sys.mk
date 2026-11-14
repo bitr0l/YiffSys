@@ -12,7 +12,8 @@ COMMON_CFLAGS =							\
 	-MMD								\
 	-I$(GLOBAL_ROOT)/sdk/inc/crt		\
 	-I$(GLOBAL_ROOT)/sdk/inc/			\
-	-I$(GLOBAL_ROOT)/nucleus/inc/
+	-I$(GLOBAL_ROOT)/nucleus/inc/		\
+	-D__STDC_WANT_LIB_EXT1__=1
 
 ifeq ($(CONFIG_ARCH),amd64)
 	COMMON_CFLAGS +=					\

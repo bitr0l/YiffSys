@@ -5,7 +5,7 @@
 #
 
 .PHONY: all
-all: kernel machine
+all: kernel machine postbuild
 
 .PHONY: kernel
 kernel:
@@ -14,3 +14,7 @@ kernel:
 .PHONY: machine
 machine:
 	cd $(CONFIG_ARCH)/$(CONFIG_CHIP); $(MAKE)
+
+.PHONY: postbuild
+postbuild:
+	rm -f $(shell find $(GLOBAL_ROOT)/sdk/crt/ -name "*.o")

@@ -10,6 +10,7 @@ include ../../../mk/sys.mk
 ASMFILES = $(shell find . -name "*.S")
 ASMOFILES = $(ASMFILES:.S=.S.o)
 MISC_OFILES = $(shell find $(GLOBAL_ROOT)/nucleus/ -name "*.o")
+MISC_OFILES += $(shell find $(GLOBAL_ROOT)/sdk/crt -name "*.o")
 
 REAL_ROOT = $(GLOBAL_ROOT)/..
 KERNEL_OUT = $(REAL_ROOT)/out/yiff.sys

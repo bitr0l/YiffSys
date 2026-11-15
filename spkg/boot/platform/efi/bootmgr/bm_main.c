@@ -103,6 +103,7 @@ bm_main (
     status_t status;
     struct memory_map mem_map;
     struct file_descriptor kernel_desc;
+    uintptr_t kentry;
 
     cons_printf(DOTS L"loader revision: %s\r\n", LOADER_REVISION);
     cons_printf(DOTS L"begin %s\r\n", LOADER_NAME);
@@ -182,11 +183,11 @@ bm_main (
      * Initialize the platform memory management unit.
      */
 
-    status = px_mmu_init();
+    status = px_mmu_init((uint64_t)kbase, &kentry);
     if (!OS_SUCCESS(status)) {
         hang("MMU init failure\n");
     }
 
-    ((void(*)(void))kbase)();
+    ((void(*)(void))kentry)();
     __builtin_unreachable();
 }

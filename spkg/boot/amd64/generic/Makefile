@@ -5,5 +5,14 @@
 #
 
 .PHONY: all
-all:
+all: target platform
+
+.PHONY: target
+target:
+	mkdir -p ../../target/machine
+	rsync -avr ../../inc/$(CONFIG_ARCH)/$(CONFIG_CHIP)/*.h \
+		../../target/machine/
+
+.PHONY: platform
+platform:
 	make -C ../../platform/efi

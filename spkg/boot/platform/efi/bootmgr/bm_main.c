@@ -4,6 +4,8 @@
  * Provided under the BSD-3 clause.
  */
 
+#include <pexpert/mmu.h>
+#include <pexpert/prim.h>
 #include <sys/cdef.h>
 #include <bootlib.h>
 #include <efilib.h>
@@ -69,6 +71,25 @@ load_kernel (
 
     *base = kernel_image;
     return STATUS_SUCCESS;
+}
+
+/*
+ * Used to hang the processor during fatal events in which firmware
+ * boot services are no longer around.
+ *
+ * TODO: Log reason to a serial port
+ */
+static void
+hang (
+    __in const char *reason
+    )
+{
+    (void)reason;
+
+    for (;;) {
+        PX_INT_DISABLE();
+        PX_CORE_HALT();
+    }
 }
 
 void
@@ -155,6 +176,15 @@ bm_main (
     if (efi_status != EFI_SUCCESS) {
         cons_printf(DOTS L"fatal: failed to exit boot services\r\n");
         return;
+    }
+
+    /*
+     * Initialize the platform memory management unit.
+     */
+
+    status = px_mmu_init();
+    if (!OS_SUCCESS(status)) {
+        hang("MMU init failure\n");
     }
 
     ((void(*)(void))kbase)();

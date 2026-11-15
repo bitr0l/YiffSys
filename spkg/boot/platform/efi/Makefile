@@ -9,6 +9,7 @@ include ../../../mk/ldr.mk
 
 CFILES = $(shell find . -name "*.c")
 CFILES += $(shell find $(GLOBAL_ROOT)/sdk/crt/ -name "*.c")
+CFILES += $(shell find $(GLOBAL_ROOT)/boot/$(CONFIG_ARCH)/$(CONFIG_CHIP) -name "*.c")
 OFILES = $(CFILES:.c=.o)
 DFILES = $(CFILES:.c=.d)
 
@@ -25,7 +26,9 @@ CFLAGS =                                 \
         -O2                              \
 		-MMD                             \
 		-Iinc							 \
-		-fms-extensions
+		-fms-extensions					 \
+		-I$(GLOBAL_ROOT)/boot/inc		 \
+		-I$(GLOBAL_ROOT)/boot/target
 
 .PHONY: all
 all: $(OFILES) $(REAL_ROOT)/out/BOOTX64.EFI postbuild

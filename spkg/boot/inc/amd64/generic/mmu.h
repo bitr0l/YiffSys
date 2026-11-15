@@ -7,7 +7,9 @@
 #ifndef _MACHINE_MMU_H
 #define _MACHINE_MMU_H 1
 
+#include <sys/comdef.h>
 #include <sys/cdef.h>
+#include <stdint.h>
 
 /*
  * Page-Table Entry (PTE) flags
@@ -24,5 +26,26 @@
 #define PTE_PS          BIT(7)        /* Page size */
 #define PTE_GLOBAL      BIT(8)        /* Global; sticky */
 #define PTE_NX          BIT(63)       /* Execute-disable */
+
+/*
+ * Read the contents of the CR3 register.
+ *
+ * Return value:
+ *      Returns the value within CR3.
+ */
+uint64_t
+mmu_read_cr3 (
+    void
+    );
+
+/*
+ * Write the contents of the CR3 register.
+ *
+ * @value:  Value to write into CR3
+ */
+void
+mmu_write_cr3 (
+    __in uint64_t value
+    );
 
 #endif  /* !_MACHINE_MMU_H */

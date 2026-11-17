@@ -4,3 +4,4 @@
 /disk
 /out
 /OVMF.fd
+/spkg/nucleus/inc/aux/ignis.h

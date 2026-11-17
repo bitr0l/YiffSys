@@ -10,4 +10,7 @@ then
     git clone https://github.com/bitr0l/Ignis/ \
         --depth=1                              \
         stand
+
+    cp stand/protocol/ignis.h      \
+        $GLOBAL_ROOT/nucleus/inc/aux/
 fi

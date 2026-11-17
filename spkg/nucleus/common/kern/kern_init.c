@@ -6,6 +6,7 @@
 
 #include <pexpert/serial.h>
 #include <aux/printf.h>
+#include <aux/ignis.h>
 #include <ctrace/object.h>
 #include <ctrace/registry.h>
 
@@ -43,7 +44,7 @@ boot_banner (
 
 void
 kmain (
-    void
+    __in struct ignis_protocol *protocol
     )
 {
     /* Initialize the platform serial driver */

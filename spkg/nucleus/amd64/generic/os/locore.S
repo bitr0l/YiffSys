@@ -10,6 +10,8 @@
     .extern __bss_end
     .extern kmain
 _start:
+    mov %rdi, protocol_handle
+
     /* Compute size of .bss */
     lea __bss_start(%rip), %rdi
     lea __bss_end(%rip), %rsi
@@ -29,6 +31,7 @@ _start:
     /* Load our own GDT and enter kernel main */
     lea g_gdtr(%rip), %rdi
     call gdt_load
+    mov protocol_handle, %rdi
     call kmain
 
     mfence
@@ -68,6 +71,9 @@ gdt_load:
     retq
 
      .section .data
+protocol_handle:
+    .quad 0
+
     .globl g_gdt
 g_gdt:
 .NULL:

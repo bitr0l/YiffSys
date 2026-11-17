@@ -34,7 +34,7 @@ make_disk() {
     mkdir -p disk/EFI/BOOT/
 
     cp spkg/base/boot/ignis.cfg disk
-    cp out/* disk/EFI/BOOT
+    cp out/*.EFI disk/EFI/BOOT
     cp out/yiff.sys disk
 
     rm -f out/yiff.img

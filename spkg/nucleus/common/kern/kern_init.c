@@ -38,7 +38,7 @@ boot_banner (
     )
 {
     printf("Copyright (c) 2026, Apollo Telephone Laboratories, et al.\n");
-    ctrace_dbg_write(nuc_ctrace, "begin YiffSys IPL.1\n");
+    ctrace_dbg_write(nuc_ctrace, "begin YiffSys IPL/1\n");
 }
 
 void

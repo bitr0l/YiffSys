@@ -33,7 +33,8 @@ check_deps() {
 make_disk() {
     mkdir -p disk/EFI/BOOT/
 
-    mv out/BOOTX64.EFI disk/EFI/BOOT
+    cp spkg/base/boot/ignis.cfg disk
+    cp out/* disk/EFI/BOOT
     cp out/yiff.sys disk
 
     rm -f out/yiff.img

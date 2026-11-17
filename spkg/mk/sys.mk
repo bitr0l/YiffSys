@@ -23,7 +23,8 @@ ifeq ($(CONFIG_ARCH),amd64)
 		-mno-sse2						\
 		-mno-avx						\
 		-mno-avx2						\
-		-mno-3dnow
+		-mno-3dnow						\
+		-mcmodel=kernel
 endif
 
 COMMON_LINK_FLAGS =	\

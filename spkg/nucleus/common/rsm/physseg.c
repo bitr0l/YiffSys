@@ -25,7 +25,9 @@ static struct ctrace_object *phys_ctrace = NULL;
 static const char *memtype_tab[] = {
     [BOOT_MEMORY_RESERVED] = "reserved",
     [BOOT_MEMORY_USABLE] = "usable",
-    [BOOT_MEMORY_BAD] = "bad"
+    [BOOT_MEMORY_BAD] = "bad",
+    [BOOT_MEMORY_LOADER] = "ignis",
+    [BOOT_MEMORY_ACPI_NVS] = "acpi nvs"
 };
 
 /*

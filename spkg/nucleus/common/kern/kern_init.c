@@ -5,6 +5,7 @@
  */
 
 #include <pexpert/serial.h>
+#include <rsm/physseg.h>
 #include <aux/printf.h>
 #include <aux/ignis.h>
 #include <ctrace/object.h>
@@ -12,6 +13,7 @@
 
 /* Globals */
 static struct ctrace_object *nuc_ctrace = NULL;
+struct ignis_protocol *g_proto;
 
 static void
 init_logbuf (
@@ -47,6 +49,8 @@ kmain (
     __in struct ignis_protocol *protocol
     )
 {
+    g_proto = protocol;
+
     /* Initialize the platform serial driver */
     px_serial_init();
 
@@ -55,4 +59,7 @@ kmain (
 
     /* Write the boot banner */
     boot_banner();
+
+    /* Initialize physseg manager */
+    mm_physseg_init();
 }
